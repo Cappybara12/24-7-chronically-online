@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Corpus — Content Engine{% endblock %}
+{% block content %}
+
+<h1>Article Corpus</h1>
+<p class="subtitle">{{ total }} articles indexed in memory, chunked and embedded locally.</p>
+
+<table class="data-table">
+  <thead>
+    <tr><th>Title</th><th>Chunks</th><th>URL</th></tr>
+  </thead>
+  <tbody>
+    {% for a in articles %}
+    <tr>
+      <td>{{ a.title }}</td>
+      <td>{{ a.chunks }}</td>
+      <td><a href="{{ a.url }}" target="_blank">{{ a.url }}</a></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="3" class="empty">No articles indexed yet. Run "Build Corpus" from the dashboard.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

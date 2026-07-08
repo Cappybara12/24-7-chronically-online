@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — Content Engine{% endblock %}
+{% block content %}
+
+<h1>Dashboard</h1>
+<p class="subtitle">Niche: <strong>{{ niche }}</strong> &middot; Corpus source: <a href="{{ blog_url }}" target="_blank">{{ blog_url }}</a></p>
+
+<div class="grid">
+  <div class="card">
+    <div class="stat">{{ article_chunks }}</div>
+    <div class="label">article chunks in memory</div>
+  </div>
+  <div class="card">
+    <div class="stat">{{ topics_scanned }}</div>
+    <div class="label">topics scanned (all-time)</div>
+  </div>
+  <div class="card">
+    <div class="stat">{{ last_scan_count }}</div>
+    <div class="label">trend hits in last scan</div>
+  </div>
+  <div class="card">
+    <div class="stat">{{ total_outlines }}</div>
+    <div class="label">outlines generated</div>
+  </div>
+</div>
+
+<h2>Review queue status</h2>
+<div class="grid">
+  <div class="card status-pending">
+    <div class="stat">{{ pending_count }}</div>
+    <div class="label">pending review</div>
+  </div>
+  <div class="card status-approved">
+    <div class="stat">{{ approved_count }}</div>
+    <div class="label">approved</div>
+  </div>
+  <div class="card status-rejected">
+    <div class="stat">{{ rejected_count }}</div>
+    <div class="label">rejected</div>
+  </div>
+</div>
+
+<h2>RAG classification breakdown</h2>
+<div class="grid">
+  <div class="card">
+    <div class="stat">{{ interlink_count }}</div>
+    <div class="label">interlink candidates</div>
+  </div>
+  <div class="card">
+    <div class="stat">{{ new_pillar_count }}</div>
+    <div class="label">new pillar topics</div>
+  </div>
+</div>
+
+<h2>Run pipeline</h2>
+<div class="actions">
+  <form method="post" action="/run/build-corpus" onsubmit="return confirm('Rebuild corpus? Uses cache unless you check force refresh.');">
+    <label><input type="checkbox" name="force" value="true"> Force refresh (uses Firecrawl credits)</label>
+    <button type="submit" class="btn">Build / Update Corpus</button>
+  </form>
+  <form method="post" action="/run/scan" onsubmit="return confirm('Run trend scan + RAG + outline generation? Uses Firecrawl + Groq.');">
+    <label><input type="checkbox" name="force" value="true"> Force refresh (uses Firecrawl credits)</label>
+    <button type="submit" class="btn">Scan Trends & Generate Outlines</button>
+  </form>
+</div>
+<p class="hint">Both steps use a local cache by default (3-day window) so re-running while testing doesn't burn Firecrawl credits. Check "force refresh" to bypass the cache.</p>
+
+{% endblock %}

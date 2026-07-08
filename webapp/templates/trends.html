@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Trends & RAG — Content Engine{% endblock %}
+{% block content %}
+
+<h1>Trends & RAG Classification</h1>
+<p class="subtitle">Every trend scanned, and how the RAG layer classified it against the corpus.</p>
+
+<div class="filter-bar">
+  <a href="/trends?classification=all" class="{{ 'active' if filter_class == 'all' }}">All</a>
+  <a href="/trends?classification=interlink" class="{{ 'active' if filter_class == 'interlink' }}">Interlink</a>
+  <a href="/trends?classification=new_pillar" class="{{ 'active' if filter_class == 'new_pillar' }}">New Pillar</a>
+</div>
+
+<table class="data-table">
+  <thead>
+    <tr><th>Keyword</th><th>Sources</th><th>Platforms</th><th>Classification</th><th>Status</th><th></th></tr>
+  </thead>
+  <tbody>
+    {% for r in rows %}
+    <tr>
+      <td>{{ r.keyword }}</td>
+      <td>{{ r.source_count }}</td>
+      <td><span class="pill">{{ r.platforms }}</span></td>
+      <td>
+        {% if r.classification == 'interlink' %}
+          <span class="badge badge-interlink">interlink</span>
+        {% else %}
+          <span class="badge badge-pillar">new pillar</span>
+        {% endif %}
+      </td>
+      <td><span class="badge badge-{{ r.status }}">{{ r.status }}</span></td>
+      <td><a href="/outlines/{{ r.filename }}">View outline →</a></td>
+    </tr>
+    {% else %}
+    <tr><td colspan="6" class="empty">No trends scanned yet. Run "Scan Trends" from the dashboard.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

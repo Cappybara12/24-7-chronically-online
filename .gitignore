@@ -1,0 +1,12 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+memory/chroma/
+corpus/cache/
+scanner/cache/
+review/*.md
+*.egg-info/
+dist/
+.DS_Store

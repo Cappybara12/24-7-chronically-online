@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{% block title %}Content Engine{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav class="topnav">
+  <div class="brand">🔥 Content Engine</div>
+  <a href="/" class="{{ 'active' if request.path == '/' }}">Dashboard</a>
+  <a href="/corpus" class="{{ 'active' if request.path == '/corpus' }}">Corpus</a>
+  <a href="/trends" class="{{ 'active' if request.path == '/trends' }}">Trends & RAG</a>
+  <a href="/outlines" class="{{ 'active' if request.path.startswith('/outlines') }}">Review Queue</a>
+</nav>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="flash">
+      {% for m in messages %}<div>{{ m }}</div>{% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<main>
+{% block content %}{% endblock %}
+</main>
+</body>
+</html>

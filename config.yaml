@@ -1,0 +1,54 @@
+# ── Niche config ──────────────────────────────────────────────────────────────
+niche: firecrawl       # change to "wayzyy" when switching to production
+
+blog:
+  url: "https://www.firecrawl.dev/blog"
+  max_articles: 50     # how many articles to pull into the corpus
+
+seed_keywords:
+  - "web scraping AI agents"
+  - "Firecrawl vs Apify"
+  - "LLM web crawling tools"
+  - "scrape website to markdown"
+  - "RAG data ingestion pipeline"
+  - "website crawler for AI"
+  - "structured data extraction LLM"
+  - "headless browser scraping 2024"
+  - "AI agent memory layer"
+  - "browser automation for AI agents"
+  - "vector database comparison"
+  - "MCP servers for AI agents"
+  - "open source LLM agent framework"
+  - "AI web search API"
+  - "PDF parsing for RAG"
+  - "context engineering for AI agents"
+  - "self-hosted RAG stack"
+  - "AI agent sandbox security"
+  - "Firecrawl alternatives"
+  - "web crawler for LLM training data"
+
+# ── Scanner config ─────────────────────────────────────────────────────────────
+scanner:
+  platforms: ["twitter", "reddit", "web"]   # twitter | reddit | hn | linkedin | web
+  recency: "week"                            # hour | day | week | month
+  results_per_query: 3                       # keep low to conserve Firecrawl credits
+  run_every_days: 3
+  max_outlines_per_run: 20                  # hard cap on Groq calls per run, regardless of how many keywords/groups are found
+
+# ── RAG config ─────────────────────────────────────────────────────────────────
+rag:
+  novelty_threshold: 0.5    # cosine similarity above this = "interlink", below = "new pillar"
+  top_k: 3                  # top K articles to retrieve per trend
+
+# ── Embedding config ───────────────────────────────────────────────────────────
+embeddings:
+  model: "all-MiniLM-L6-v2"   # local sentence-transformers model, no API key needed
+
+# ── LLM config (Groq) ─────────────────────────────────────────────────────────
+llm:
+  provider: "groq"
+  model: "llama-3.3-70b-versatile"
+
+# ── Review output ──────────────────────────────────────────────────────────────
+review:
+  output_dir: "review/"

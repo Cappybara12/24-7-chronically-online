@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}{{ outline.frontmatter.keyword }} — Content Engine{% endblock %}
+{% block content %}
+
+<a href="/outlines" class="back-link">← Back to Review Queue</a>
+
+<div class="outline-header">
+  <h1>{{ outline.frontmatter.keyword }}</h1>
+  <div class="badges">
+    <span class="badge badge-{{ outline.frontmatter.classification }}">{{ outline.frontmatter.classification }}</span>
+    <span class="badge badge-{{ outline.frontmatter.status }}">{{ outline.frontmatter.status }}</span>
+    <span class="pill">{{ outline.frontmatter.source_count }} sources: {{ outline.frontmatter.platforms }}</span>
+  </div>
+</div>
+
+<div class="actions">
+  <form method="post" action="/outlines/{{ outline.filename }}/status" style="display:inline">
+    <input type="hidden" name="status" value="approved">
+    <button type="submit" class="btn btn-approve">✓ Approve</button>
+  </form>
+  <form method="post" action="/outlines/{{ outline.filename }}/status" style="display:inline">
+    <input type="hidden" name="status" value="rejected">
+    <button type="submit" class="btn btn-reject">✗ Reject</button>
+  </form>
+  <form method="post" action="/outlines/{{ outline.filename }}/status" style="display:inline">
+    <input type="hidden" name="status" value="pending_review">
+    <button type="submit" class="btn btn-reset">↺ Reset to Pending</button>
+  </form>
+</div>
+
+<div class="outline-body">
+{{ body_html | safe }}
+</div>
+
+{% endblock %}
